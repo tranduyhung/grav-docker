@@ -1,0 +1,20 @@
+volumes:
+  grav-data:
+    driver: local
+    driver_opts:
+      type: none
+      device: $PWD/grav
+      o: bind
+
+services:
+  grav:
+    container_name: grav-nginx
+    build: ./
+    ports:
+      - 8080:80
+    volumes:
+      #- grav-data:/usr/share/nginx/html/user
+      - type: bind
+        source: $PWD/grav
+        target: /usr/share/nginx/html/user
+    working_dir: /usr/share/nginx/html/user
